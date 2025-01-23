@@ -1,0 +1,12 @@
+<% content_for :title, "Task Details" %>
+
+<h1>Task Details</h1>
+
+<div class="task-card">
+  <p><strong>Title:</strong> <%= @task.title %></p>
+  <p><strong>Description:</strong> <%= @task.description %></p>
+  <!-- Add other task attributes as needed -->
+</div>
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>

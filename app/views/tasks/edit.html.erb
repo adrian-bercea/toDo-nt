@@ -1,0 +1,9 @@
+<% content_for :title, "Edit Task" %>
+
+<h1>Edit Task</h1>
+
+<div class="task-card">
+  <%= render 'form', task: @task %>
+</div>
+
+<%= link_to 'Back', tasks_path %>
