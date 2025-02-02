@@ -1,9 +1,8 @@
-<!-- filepath: /Users/adrianbercea/study/to_do_scaffold/app/views/tasks/_form.html.erb -->
+<!-- filepath: /Users/adrianbercea/study/toDo-nt/app/views/tasks/_form.html.erb -->
 <%= form_with(model: task, local: true) do |form| %>
   <% if task.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-danger">
       <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
-
       <ul>
         <% task.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -12,22 +11,75 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="form-group">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.rich_text_area :description %>
+  <div class="form-group">
+    <%= form.label :description, class: "form-label" %>
+    <%= form.rich_text_area :description, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :completed %>
-    <%= form.check_box :completed %>
+  <div class="form-group">
+    <%= form.label :category_ids, "Categories", class: "form-label" %>
+    <%= form.collection_select :category_ids, Category.all, :id, :name, {}, { multiple: true, class: "form-control" } %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-group">
+    <%= form.label :completed, class: "form-label" %>
+    <%= form.check_box :completed, class: "form-check-input" %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit "Save Task", class: "btn btn-primary" %>
+    <%= link_to "Create New Category", new_category_path, class: "btn btn-secondary" %>
   </div>
 <% end %>
+
+<style>
+  .form-group {
+    margin-bottom: 15px;
+  }
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .form-control {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+  .form-check-input {
+    margin-left: 0;
+  }
+  .form-actions {
+    margin-top: 20px;
+  }
+  .alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+  .alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+  }
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+  }
+</style>

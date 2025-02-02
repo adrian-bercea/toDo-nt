@@ -34,3 +34,11 @@
   background-color: #6c757d;
   color: white;
 }
+.field-container {
+  display: flex;
+  gap: 20px; /* Adjust the gap as needed */
+}
+
+.field {
+  flex: 1;
+}
