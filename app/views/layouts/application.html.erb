@@ -24,6 +24,20 @@
   </head>
 
   <body>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+
+      <div class="user-actions">
+    <% if user_signed_in? %>
+      <span class="user-email">Signed in as <%= current_user.email %></span>
+      <%= link_to "Profile", edit_user_registration_path, class: "btn btn-primary" %>
+      <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-secondary" %>
+    <% else %>
+      <%= link_to "Log in", new_user_session_path, class: "btn btn-primary" %>
+      <%= link_to "Sign up", new_user_registration_path, class: "btn btn-secondary" %>
+    <% end %>
+  </div>
+
     <%= yield %>
   </body>
 </html>

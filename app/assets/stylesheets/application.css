@@ -11,3 +11,26 @@
  .text-right {
   text-align: right;
 }
+
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.user-email {
+  margin-right: auto;
+}
+.btn {
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
