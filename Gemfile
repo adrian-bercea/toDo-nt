@@ -54,6 +54,10 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  # Add pry for debugging
+  gem "pry"
+  gem "pry-rails"
 end
 
 group :test do
