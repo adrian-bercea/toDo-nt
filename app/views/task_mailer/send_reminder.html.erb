@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        background-color: #ffffff;
+        margin: 20px auto;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+      }
+      .header {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #343a40;
+      }
+      .task-details {
+        margin-bottom: 20px;
+        padding: 10px;
+        border-bottom: 1px solid #e9ecef;
+      }
+      .task-details:last-child {
+        border-bottom: none;
+      }
+      .task-details strong {
+        display: inline-block;
+        width: 100px;
+        color: #495057;
+      }
+      .footer {
+        font-size: 14px;
+        color: #6c757d;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+  <p>You have the following task to complete:</p>
+    <div class="container">
+      <div class="task-details">
+        <p><strong>Task:</strong> <%= @task.title %></p>
+        <p><strong>Description:</strong> <%= @task.description %></p>
+      </div>
+    </div>
+    <div class="footer">
+      <p>Thank you!</p>
+      <p>Your To-Don't App Tim</p>
+    </div>
+  </body>
+</html>
