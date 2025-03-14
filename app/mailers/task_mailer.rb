@@ -1,12 +1,9 @@
 class TaskMailer < ApplicationMailer
-  def send_reminders(user_email)
-    @user = User.find_by(email: user_email)
-    @tasks = @user.tasks
-     Rails.logger.info "Sending reminders to #{@user.email}"
-    @tasks.each do |task|
-      Rails.logger.info "Task: #{task.title}, Description: #{task.description}"
-    end
+  def send_reminder(task_id)
+    @task = Task.find(task_id)
+    Rails.logger.info "Sending reminders to #{@task.user.email}"
+    Rails.logger.info "Task: #{@task.title}, Description: #{@task.description}"
 
-    mail(to: @user.email, subject: "Task Reminder")
+    mail(to: @task.user.email, subject: "Task reminder: #{@task.title}")
   end
 end

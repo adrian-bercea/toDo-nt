@@ -1,13 +1,16 @@
 class TaskReminderJob
   include Sidekiq::Job
 
+  sidekiq_options queue: "mailers"
+
   def perform(task_id)
     task = Task.find(task_id)
-    # Ensure idempotency
-    return if task.reminder_sent?
 
-    # Send reminder (implement your reminder logic here)
-    TaskMailer.reminder(task).deliver_now
+    # Ensure idempotency
+    return if task.reminder_sent? || task.user.nil?
+
+    # Send reminder
+    TaskMailer.send_reminder(task_id).deliver_now
 
     # Mark the task as reminder sent
     task.update(reminder_sent: true)
