@@ -69,4 +69,7 @@ end
 gem "devise", "~> 4.9"
 
 gem "sidekiq"
-gem "sidekiq-scheduler"
+gem "sidekiq-scheduler", "~> 5.0"
+gem "redis", ">= 4.0.1"
+
+gem "faker"

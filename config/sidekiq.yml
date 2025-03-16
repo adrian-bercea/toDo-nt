@@ -1,6 +1,7 @@
-:concurrency: 2
+:scheduler:
+  :schedule: {}
+  :file: "./config/sidekiq_schedule.yml"
+
 :queues:
   - default
   - mailers
-:schedule:
-  :file: "./config/sidekiq_schedule.yml"
