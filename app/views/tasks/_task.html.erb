@@ -1,4 +1,4 @@
-<div id="<%= dom_id task %>">
+<div id="<%= dom_id task %>" class="task-card">
   <h2>
     <%= link_to task.title, edit_task_path(task) %>
   </h2>
@@ -12,4 +12,5 @@
     <%= task.completed ? "✔️" : "❌" %>
   </p>
 
+  <p><strong>Categories:</strong> <%= task.categories.map(&:name).join(", ") %></p>
 </div>
