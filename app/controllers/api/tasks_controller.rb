@@ -1,10 +1,8 @@
 module Api
-  class TasksController < ApplicationController
+  class TasksController < ActionController::API
     MAX_LIMIT     = 50
     DEFAULT_LIMIT = 24
     DEFAULT_OFFSET = 0
-
-    protect_from_forgery unless: -> { request.format.json? } # CSRF protection is disabled for JSON requests, no bueno but just for giggles
 
     def index
       @tasks = Task.includes(:categories)
