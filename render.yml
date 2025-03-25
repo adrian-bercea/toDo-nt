@@ -1,12 +1,12 @@
 databases:
-  - name: mysite
-    databaseName: mysite
-    user: mysite
+  - name: todo-render
+    databaseName: todo-render-db
+    user: postgres
     plan: free
 
 services:
   - type: web
-    name: mysite
+    name: todo-render
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
