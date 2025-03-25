@@ -81,6 +81,7 @@ test:
 production:
   primary: &primary_production
     <<: *default
+    url: <%= ENV['DATABASE_URL'] %>
     database: todo_render_db
     username: todo_render_db_user
     password: <%= ENV["TO_DO_NT_DATABASE_PASSWORD"] %>
