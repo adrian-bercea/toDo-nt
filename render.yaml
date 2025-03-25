@@ -1,12 +1,12 @@
 databases:
-  - name: todo-render
-    databaseName: todo-render-db
-    user: postgres
+  - name: todo-render-db
+    databaseName: todo_render_db
+    user: todo_render_db_user
     plan: free
 
 services:
   - type: web
-    name: todo-render
+    name: toDo-nt
     runtime: ruby
     plan: free
     buildCommand: "./bin/render-build.sh"
