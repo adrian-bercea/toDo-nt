@@ -81,18 +81,18 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: to_do_nt_production
-    username: to_do_nt
+    database: todo_render_db
+    username: todo_render_db_user
     password: <%= ENV["TO_DO_NT_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production
-    database: to_do_nt_production_cache
+    database: todo_render_db_cache
     migrations_paths: db/cache_migrate
   queue:
     <<: *primary_production
-    database: to_do_nt_production_queue
+    database: todo_render_db_queue
     migrations_paths: db/queue_migrate
   cable:
     <<: *primary_production
-    database: to_do_nt_production_cable
+    database: todo_render_db_cable
     migrations_paths: db/cable_migrate
