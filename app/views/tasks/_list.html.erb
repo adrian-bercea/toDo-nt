@@ -1,0 +1,5 @@
+<div id="tasks_list" data-controller="sortable">
+  <% tasks.each do |task| %>
+    <%= render partial: "tasks/task_item", locals: { task: task } %>
+  <% end %>
+</div>

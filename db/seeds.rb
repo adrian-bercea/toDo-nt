@@ -8,11 +8,11 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-100.times do
+100.times do |i|
   Task.create(
     title: Faker::Lorem.sentence,
     description: Faker::Lorem.paragraph,
     completed: [ true, false ].sample,
-    user_id: [ nil, 1 ].sample
+    position: i
   )
 end
