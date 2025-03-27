@@ -13,6 +13,6 @@
     title: Faker::Lorem.sentence,
     description: Faker::Lorem.paragraph,
     completed: [ true, false ].sample,
-    user_id: [ nil, 1 ].sample
+    user_id: nil
   )
 end

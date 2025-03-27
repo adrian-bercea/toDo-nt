@@ -20,14 +20,17 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "application", type: "module" %>
   </head>
 
   <body>
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
 
-    
+    <ul data-controller="sortable" data-sortable-animation-value="150">
+      <li>Pet the cat</li>
+      <li>Get the groceries</li>
+    </ul>
     <% if user_signed_in? %>
       <div class="user-actions">
         <%= link_to "Profile", edit_user_registration_path, class: "btn btn-primary" %>

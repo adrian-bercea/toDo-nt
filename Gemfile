@@ -9,7 +9,7 @@ gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
+# gem "importmap-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
@@ -73,3 +73,7 @@ gem "sidekiq-scheduler", "~> 5.0"
 gem "redis", ">= 4.0.1"
 
 gem "faker"
+
+gem "cssbundling-rails", "~> 1.4"
+gem "jsbundling-rails", "~> 1.3"
+gem 'acts_as_list'

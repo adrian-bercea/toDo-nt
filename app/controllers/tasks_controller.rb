@@ -3,7 +3,7 @@ class TasksController < ApplicationController
 
   def index
     benchmark = Benchmark.measure do
-      @tasks = Task.all
+      @tasks = Task.order(:position)
       render
     end
 
@@ -54,6 +54,12 @@ class TasksController < ApplicationController
     end
   end
 
+  def update_position
+    @task = Task.find(params[:task_id])
+    @task.insert_at(params[:position].to_i)
+    head :ok
+  end
+
   private
 
   def set_task
@@ -61,6 +67,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :completed, category_ids: [])
+    params.require(:task).permit(:title, :description, :completed, :position, category_ids: [])
   end
 end
