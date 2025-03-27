@@ -1,11 +1,11 @@
 <div id="<%= dom_id task %>" class="task-card">
-  <h2>
+  <h4>
     <%= link_to task.title, edit_task_path(task) %>
-  </h2>
+  </h4>
 
-  <p>
-    <%= task.description %>
-  </p>
+    <p class="ps-3">
+      <%= task.description %>
+    </p>
 
   <p>
     Completed:
