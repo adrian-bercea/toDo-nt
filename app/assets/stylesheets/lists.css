@@ -1,0 +1,36 @@
+.task-item {
+  cursor: grab;
+  margin-bottom: 0.5rem;
+  transition: box-shadow 0.2s ease;
+}
+
+/* Add these styles for empty lists */
+.empty-list-placeholder {
+  min-height: 80px;
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  margin-bottom: 0.5rem;
+}
+
+/* List container - ensure minimum height */
+[data-controller="sortable"] {
+  min-height: 100px; /* Ensures space for dropping even without placeholder */
+}
+
+/* Visual feedback classes */
+.sortable-ghost {
+  opacity: 0.4;
+  background-color: #f0f0f0;
+}
+
+.sortable-chosen {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.sortable-drag {
+  opacity: 0.8;
+}

@@ -12,5 +12,5 @@
     <%= task.completed ? "✔️" : "❌" %>
   </p>
 
-  <p><strong>Categories:</strong> <%= task.categories.map(&:name).join(", ") %></p>
+  <p><strong>Categories:</strong> <%= task&.categories&.map(&:name)&.join(", ") %></p>
 </div>

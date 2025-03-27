@@ -7,7 +7,18 @@ Rails.application.routes.draw do
   root "tasks#index"
   get "/api", to: "api/tasks#index"
 
-  resources :tasks
+  resources :lists do
+    member do
+      put :update_position  # Only needed if lists themselves can be reordered
+    end
+  end
+
+  # Keep your existing task routes
+  resources :tasks do
+    member do
+      put :update_position
+    end
+  end
   put "/tasks/:id/update_position", to: "tasks#update_position", as: :update_position
   resources :categories, only: [ :new, :create ]
 
