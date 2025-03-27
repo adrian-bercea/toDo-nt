@@ -1,4 +1,5 @@
 class Task < ApplicationRecord
+  acts_as_list top_of_list: 0
   belongs_to :user, optional: true
   has_and_belongs_to_many :categories
   has_rich_text :description

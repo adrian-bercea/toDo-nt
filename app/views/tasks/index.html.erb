@@ -5,9 +5,9 @@
 <h1>Tasks</h1>
 <h3><%= link_to "New task", new_task_path %></h3>
 
-<div id="tasks" data-controller="sortable">
+<div id="tasks" data-controller="sortable" data-sortable-resource-name-value="task">
   <% @tasks.each do |task| %>
-    <div data-sortable-handle data-sortable-url="<%= task_path(task) %>/positions" id="task_<%= task.id %>">
+    <div data-sortable-handle data-sortable-url="<%= update_position_path(task) %>">
       <%= render task, cached: true %>
     </div>
   <% end %>

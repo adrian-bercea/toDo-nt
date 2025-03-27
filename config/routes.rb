@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get "/api", to: "api/tasks#index"
 
   resources :tasks
+  put "/tasks/:id/update_position", to: "tasks#update_position", as: :update_position
   resources :categories, only: [ :new, :create ]
 
   namespace :api do

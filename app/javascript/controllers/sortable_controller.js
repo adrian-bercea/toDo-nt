@@ -14,8 +14,6 @@ export default class extends Controller {
   static values = { url: String };
 
   connect() {
-    // this.element.textContent = "Hello fucking shit i'm stupid!"
-    console.log("I'm a monkeyh");
     this.sortable = Sortable.create(this.element, {
       animation: 350,
       ghostClass: "bg-gray-200",
