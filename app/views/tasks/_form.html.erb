@@ -1,6 +1,5 @@
 <%= turbo_frame_tag dom_id(@task) do %>
   <div class="edit-task-container">
-    <h2>Edit Task</h2>
     
     <%= form_with(model: @task, class: "task-form", data: { turbo_frame: dom_id(@task) }) do |form| %>
       <% if @task.errors.any? %>
@@ -43,6 +42,7 @@
 
       <div class="form-actions">
         <%= form.submit "Save", class: "btn btn-primary" %>
+        <%= link_to "Cancel", task_url(@task), class: "btn btn-secondary", data: "{ turbo_frame: dom_id(@task) }" %>
       </div>
     <% end %>
   </div>
