@@ -63,9 +63,31 @@
   overflow-y: auto;
 }
 
-.task-item {
-  background: white;
-  margin-bottom: 0.5rem;
-  border-radius: 3px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+.categories-selection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.category-checkbox {
+  display: inline-flex;
+  align-items: center;
+  background-color: #f1f1f1;
+  padding: 5px 10px;
+  border-radius: 15px;
+  transition: background-color 0.2s;
+}
+
+.category-checkbox:hover {
+  background-color: #e9e9e9;
+}
+
+.category-checkbox-input {
+  margin-right: 5px;
+}
+
+.category-checkbox-label {
+  font-size: 14px;
+  cursor: pointer;
 }

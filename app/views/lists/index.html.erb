@@ -1,11 +1,14 @@
 <h1>My Lists</h1>
 
+<%# Place all stream subscriptions at the top of the page %>
 <%#= turbo_stream_from "lists" %>
+<%# @lists.each do |list| %>
+  <%#= turbo_stream_from list %>
+<%# end %>
 
 <div class="lists-container">
   <% @lists.each do |list| %>
     <div class="list" id="list_<%= list.id %>">
-      <%#= turbo_stream_from list %>
       <h3><%= list.name %></h3>
       <div id="list_<%= list.id %>_tasks" 
            data-controller="sortable"

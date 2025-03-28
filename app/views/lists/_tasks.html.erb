@@ -1,8 +1,7 @@
 <% list.tasks.each do |task| %>
-  <div id="<%= dom_id(task) %>" 
-        data-sortable-url="<%= update_position_path(task) %>"
-        data-list-id="<%= list.id %>"
-        class="task-item">
+  <div class="task-item-container" 
+       data-sortable-url="<%= update_position_path(task) %>"
+       data-list-id="<%= list.id %>">
     <%= render task %>
   </div>
 <% end %>
