@@ -1,16 +1,17 @@
-<div id="<%= dom_id task %>" class="task-card">
-  <h2>
-    <%= link_to task.title, edit_task_path(task) %>
-  </h2>
+<%= turbo_frame_tag dom_id(task) do %>
+  <div class="task-card">
+    <h2><%= task.title %></h2>
+    
+    <p><%= task.description %></p>
+    
+    <p>
+      <%= task.completed ? "✔️" : "❌" %>
+    </p>
 
-  <p>
-    <%= task.description %>
-  </p>
-
-  <p>
-    Completed:
-    <%= task.completed ? "✔️" : "❌" %>
-  </p>
-
-  <p><strong>Categories:</strong> <%= task&.categories&.map(&:name)&.join(", ") %></p>
-</div>
+    <p><strong>Categories:</strong> <%= task&.categories&.map(&:name)&.join(", ") %></p>
+    
+    <div class="task-actions">
+      <%= link_to "Edit", edit_task_path(task), data: { turbo_frame: dom_id(task) } %>
+    </div>
+  </div>
+<% end %>

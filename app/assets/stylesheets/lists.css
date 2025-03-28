@@ -1,4 +1,4 @@
-.task-item {
+.task-item-container {
   cursor: grab;
   margin-bottom: 0.5rem;
   transition: box-shadow 0.2s ease;

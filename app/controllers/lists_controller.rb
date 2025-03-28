@@ -2,7 +2,7 @@ class ListsController < ApplicationController
   before_action :set_list, except: [ :index, :new, :create, :update_position ]
 
   def index
-    @lists = List.includes(tasks: :rich_text_description).order(:position)
+    @lists = List.order(:position)
   end
 
   def show

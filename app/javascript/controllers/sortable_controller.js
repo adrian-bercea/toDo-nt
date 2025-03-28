@@ -37,11 +37,15 @@ export default class extends Controller {
   handleSortEnd(event) {
     if (event.from === event.to && event.oldIndex === event.newIndex) return
     
+    const item = event.item
     const newPosition = event.newIndex + 1
-    const url = event.item.dataset.sortableUrl
+    const url = item.dataset.sortableUrl
     const newListId = parseInt(event.to.closest('[data-sortable-list-id-value]').dataset.sortableListIdValue)
     
     console.log(`Moving to list ${newListId}, position ${newPosition}`)
+    
+    // Update the data-list-id attribute to match the new list
+    item.dataset.listId = newListId
     
     put(url, { 
       body: JSON.stringify({ position: newPosition, list_id: newListId }),
