@@ -6,15 +6,8 @@
   <%#= turbo_stream_from list %>
 <%# end %>
 
-<div class="lists-container">
+<div class="lists-container"> <!-- Use whatever class you had before -->
   <% @lists.each do |list| %>
-    <div class="list" id="list_<%= list.id %>">
-      <h3><%= list.name %></h3>
-      <div id="list_<%= list.id %>_tasks" 
-           data-controller="sortable"
-           data-sortable-list-id-value="<%= list.id %>">
-        <%= render "lists/tasks", list: list %>
-      </div>
-    </div>
+    <%= render "list", list: list %>
   <% end %>
 </div>

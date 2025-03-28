@@ -1,21 +1,26 @@
-<%= turbo_frame_tag dom_id(@task) do %>
-  <div class="edit-task-container">
-    
-    <%= form_with(model: @task, class: "task-form", data: { turbo_frame: dom_id(@task) }) do |form| %>
-      <% if @task.errors.any? %>
+<div class="task-card">
+  <% new_task = !task.persisted? %>
+  <% frame_id = new_task ? "new-task-frame-#{task.list_id}" : dom_id(task) %>
+
+  <div class="task-form-container">
+    <%= form_with(model: task, class: "task-form", data: { turbo_frame: frame_id }) do |form| %>
+      
+      <% if task.errors.any? %>
         <div class="alert alert-danger">
-          <p><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</p>
+          <p><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</p>
           <ul>
-            <% @task.errors.each do |error| %>
+            <% task.errors.each do |error| %>
               <li><%= error.full_message %></li>
             <% end %>
           </ul>
         </div>
       <% end %>
 
+      <%= form.hidden_field :list_id if new_task %>
+      
       <div class="form-group">
         <%= form.label :title, class: "form-label" %>
-        <%= form.text_field :title, class: "form-control" %>
+        <%= form.text_field :title, class: "form-control", autofocus: true %>
       </div>
 
       <div class="form-group">
@@ -41,9 +46,13 @@
       </div>
 
       <div class="form-actions">
-        <%= form.submit "Save", class: "btn btn-primary" %>
-        <%= link_to "Cancel", task_url(@task), class: "btn btn-secondary", data: "{ turbo_frame: dom_id(@task) }" %>
+        <%= form.submit class: "btn btn-primary" %>
+        <% if new_task %>
+          <%= link_to "Cancel", lists_path, class: "btn btn-secondary", data: { turbo_frame: frame_id } %>
+        <% else %>
+          <%= link_to "Cancel", task_path(task), class: "btn btn-secondary", data: { turbo_frame: frame_id } %>
+        <% end %>
       </div>
     <% end %>
   </div>
-<% end %>
+</div>

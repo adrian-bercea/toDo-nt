@@ -1,0 +1,23 @@
+
+
+<div class="list" id="list_<%= list.id %>">
+
+  <h3><%= list.name %></h3>
+
+  <!-- Turbo Frame for the create task button/form -->
+  <turbo-frame id="new-task-frame-<%= list.id %>">
+    <div class="create-task-button">
+      <a href="/tasks/new?list_id=<%= list.id %>" data-turbo-frame="new-task-frame-<%= list.id %>">
+        + Create new task
+      </a>
+    </div>
+  </turbo-frame>
+
+
+  <div id="list_<%= list.id %>_tasks" 
+       data-controller="sortable"
+       data-sortable-list-id-value="<%= list.id %>">
+    <%= render "lists/tasks", list: list %>
+  </div>
+  
+</div>

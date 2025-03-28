@@ -1,11 +1,3 @@
-<% content_for :title, "New task" %>
-
-<h1>New task</h1>
-
-<%= render "form", task: @task %>
-
-<br>
-
-<div>
-  <%= link_to "Back to tasks", tasks_path %>
-</div>
+<turbo-frame id="new-task-frame-<%= @list_id %>">
+  <%= render "form", task: @task, list_id: @list_id, new_task: true %>
+</turbo-frame>
