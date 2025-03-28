@@ -4,21 +4,8 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq"
   devise_for :users
 
-  root "tasks#index"
-  get "/api", to: "api/tasks#index"
-
-  resources :lists do
-    member do
-      put :update_position  # Only needed if lists themselves can be reordered
-    end
-  end
-
-  # Keep your existing task routes
-  resources :tasks do
-    member do
-      put :update_position
-    end
-  end
+  resources :lists 
+  resources :tasks
   put "/tasks/:id/update_position", to: "tasks#update_position", as: :update_position
   resources :categories, only: [ :new, :create ]
 
@@ -36,5 +23,6 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  # root "posts#index"
+    root "lists#index"
+    get "/api", to: "api/tasks#index"
 end
