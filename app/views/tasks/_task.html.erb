@@ -4,12 +4,12 @@
     
     <p><%= task.description %></p>
     
-    <p>
+    <p> State:
       <%= task.completed ? "✔️" : "❌" %>
     </p>
-
-    <p><strong>Categories:</strong> <%= task&.categories&.map(&:name)&.join(", ") %></p>
     
+    <p><strong>Categories:</strong> <%= task&.categories&.map(&:name)&.join(", ") %></p>
+
     <div class="task-actions">
       <%= link_to "Edit", edit_task_path(task), data: { turbo_frame: dom_id(task) } %>
     </div>
