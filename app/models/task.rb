@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
-  acts_as_list top_of_list: 0
+  acts_as_list scope: :list
+  belongs_to :list
 
   belongs_to :user, optional: true
   has_and_belongs_to_many :categories
@@ -7,23 +8,36 @@ class Task < ApplicationRecord
   accepts_nested_attributes_for :categories, allow_destroy: true
 
   validates :title, presence: true
-
-  # Add broadcasting support
-  broadcasts_to ->(task) { "tasks" }, inserts_by: :prepend
-  after_update_commit :broadcast_list_if_position_changed
+  # Update broadcast to include list changes
+  after_update_commit :broadcast_list_if_changed
 
   private
 
-  def broadcast_list_if_position_changed
-    return unless saved_change_to_position?
+  def broadcast_list_if_changed
+    return unless saved_change_to_position? || saved_change_to_list_id?
 
-    # Get ordered tasks and broadcast the replacement
-    tasks = Task.order(:position)
+    # If list changed, broadcast both lists
+    if saved_change_to_list_id?
+      old_list_id, new_list_id = saved_change_to_list_id
+      [ old_list_id, new_list_id ].compact.each do |list_id|
+        broadcast_list(list_id)
+      end
+    else
+      broadcast_list(list_id)
+    end
+  end
+
+  def broadcast_list(list_id)
+    list = List.find(list_id)
+
+    # Force reload to get the latest positions
+    list.tasks.reload
+
     Turbo::StreamsChannel.broadcast_replace_to(
-      "tasks",
-      target: "tasks_list",
-      partial: "tasks/list",
-      locals: { tasks: tasks }
+      "lists",
+      target: "list_#{list_id}_tasks",
+      partial: "lists/tasks",
+      locals: { list: list }
     )
   end
 end

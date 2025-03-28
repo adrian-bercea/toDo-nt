@@ -55,11 +55,19 @@ class TasksController < ApplicationController
   end
 
   def update_position
-    position = params[:position].to_i
-    if @task.insert_at(position)
+    ActiveRecord::Base.transaction do
+      position = params[:position].to_i
+      list_id = params[:list_id]
+
+      # Change list if needed (do this first)
+      if list_id.present? && list_id.to_i != @task.list_id
+        @task.update!(list_id: list_id.to_i)
+      end
+
+      # Then update position (after list change)
+      @task.reload.insert_at(position)
+
       head :ok
-    else
-      head :unprocessable_entity
     end
   end
 
@@ -70,6 +78,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :completed, :position, category_ids: [])
+    params.require(:task).permit(:title, :description, :completed, :position, :list_id, category_ids: [])
   end
 end
