@@ -8,11 +8,18 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-100.times do |i|
+4.times do |i|
+  List.create(
+    name: "List #{i + 1}",
+    position: i + 1)
+end
+
+10.times do |i|
   Task.create(
-    title: Faker::Lorem.sentence,
+    title: "Task #{i + 1}",
     description: Faker::Lorem.paragraph,
     completed: [ true, false ].sample,
-    position: i
+    position: i +1,
+    list_id: 1
   )
 end
