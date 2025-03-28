@@ -1,0 +1,47 @@
+version: '3'
+services:
+  db:
+    container_name: postgres
+    image: postgres:14
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: todo_nt_production
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+
+  redis:
+    container_name: redis
+    image: redis:7
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+
+  web:
+    container_name: web
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/todo_nt_production
+      REDIS_URL: redis://redis:6379/1
+      DISABLE_DATABASE_ENVIRONMENT_CHECK: 1
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    command: bash -c "bin/rails db:setup && bin/rails server -b 0.0.0.0"
+
+volumes:
+  postgres_data:
+  redis_data:
