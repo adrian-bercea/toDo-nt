@@ -1,3 +1,5 @@
-<turbo-frame id="new-task-frame-<%= @list_id %>">
-  <%= render "form", task: @task, list_id: @list_id, new_task: true %>
+<turbo-frame id="new-task-frame-<%= @task.list_id %>">
+  <div class="task-form-container">
+    <%= render "form", task: @task %>
+  </div>
 </turbo-frame>

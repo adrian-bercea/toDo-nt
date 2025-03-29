@@ -1,46 +1,23 @@
 class TasksController < ApplicationController
   include ActionView::RecordIdentifier # For dom_id helper
-  before_action :set_task, only: %i[show edit update destroy update_position]
+  before_action :set_task, except: %i[index new create]
 
   def index
-    benchmark = Benchmark.measure do
-      @tasks = Task.order(:position)
+      @tasks = Task.all
       render
-    end
-
-    logger.info "Tasks#index completed in #{benchmark.real * 1000} miliseconds"
-  end
-
-  def show
   end
 
   def new
-    @task = Task.new
-  end
-
-  def new
-    @task = Task.new
-    @task.list_id = params[:list_id]
-    @list_id = params[:list_id]
+    @task = Task.new(list_id: params[:list_id])
   end
 
   def create
     @task = Task.new(task_params)
-    @list_id = @task.list_id
+    @task.row_order_position = 0 # Position at the top
 
     if @task.save
-      # Set position to be at the beginning of the list
-      @task.insert_at(1) # This moves it to the top position in the list
-
       respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.prepend("list_#{@task.list_id}_tasks", partial: "tasks/task", locals: { task: @task }),
-            turbo_stream.replace("new-task-frame-#{@task.list_id}",
-                                partial: "tasks/new_button",
-                                locals: { list_id: @task.list_id })
-          ]
-        end
+        format.turbo_stream # This will use create.turbo_stream.erb
         format.html { redirect_to lists_path }
       end
     else
@@ -81,21 +58,9 @@ class TasksController < ApplicationController
     end
   end
 
-  def update_position
-    ActiveRecord::Base.transaction do
-      position = params[:position].to_i
-      list_id = params[:list_id]
-
-      # Change list if needed (do this first)
-      if list_id.present? && list_id.to_i != @task.list_id
-        @task.update!(list_id: list_id.to_i)
-      end
-
-      # Then update position (after list change)
-      @task.reload.insert_at(position)
-
-      head :ok
-    end
+  def sort
+    @task.update(row_order_position: params[:row_order_position], list_id: params[:list_id])
+    head :no_content
   end
 
   private
@@ -105,6 +70,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :completed, :position, :list_id, category_ids: [])
+    params.require(:task).permit(:title, :description, :completed, :row_order_position, :list_id, category_ids: [])
   end
 end

@@ -4,9 +4,17 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq"
   devise_for :users
 
-  resources :lists
-  resources :tasks
-  put "/tasks/:id/update_position", to: "tasks#update_position", as: :update_position
+  resources :lists do
+    member do
+      put :sort
+    end
+  end
+  resources :tasks do
+    member do
+      put :sort
+    end
+  end
+
   resources :categories, only: [ :new, :create ]
 
   namespace :api do
