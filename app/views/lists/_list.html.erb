@@ -1,7 +1,6 @@
 <div class="list" data-sortable-url="<%= sort_list_path(list)%>">
 
   <h3><%= list.name %></h3>
-  <h3><%= list.row_order %></h3>
 
   <!-- Turbo Frame for the create task button/form -->
   <turbo-frame id="new-task-frame-<%= list.id %>">
@@ -13,7 +12,7 @@
   </turbo-frame>
 
   <br>
-  <div data-controller="sortable" data-sortable-group-value="tasks" data-sortable-list-id=<%= list.id %>>
+  <div id="list_<%= list.id %>_tasks" data-controller="sortable" data-sortable-group-value="tasks" data-sortable-list-id=<%= list.id %>>
     <% list.tasks.rank(:row_order).each do |task| %>
       <div class="task-item-container" data-sortable-url="<%= sort_task_path(task) %>">
         <%= render task %>

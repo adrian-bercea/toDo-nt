@@ -1,0 +1,4 @@
+<%= turbo_stream.prepend("list_#{@task.list_id}_tasks", partial: "tasks/task", locals: { task: @task }) %>
+<%= turbo_stream.replace("new-task-frame-#{@task.list_id}", 
+                        partial: "tasks/new_button", 
+                        locals: { list_id: @task.list_id }) %>

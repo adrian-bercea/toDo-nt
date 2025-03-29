@@ -7,35 +7,17 @@ class TasksController < ApplicationController
       render
   end
 
-  def show
-  end
-
   def new
-    @task = Task.new
+    @task = Task.new(list_id: params[:list_id])
   end
-
-  # def new
-  #   @task = Task.new
-  #   @task.list_id = params[:list_id]
-  #   @list_id = params[:list_id]
-  # end
 
   def create
     @task = Task.new(task_params)
-    @list_id = @task.list_id
+    @task.row_order_position = 0 # Position at the top
 
     if @task.save
-      # Set position to be at the beginning of the list
-
       respond_to do |format|
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.prepend("list_#{@task.list_id}_tasks", partial: "tasks/task", locals: { task: @task }),
-            turbo_stream.replace("new-task-frame-#{@task.list_id}",
-                                partial: "tasks/new_button",
-                                locals: { list_id: @task.list_id })
-          ]
-        end
+        format.turbo_stream # This will use create.turbo_stream.erb
         format.html { redirect_to lists_path }
       end
     else
@@ -77,7 +59,6 @@ class TasksController < ApplicationController
   end
 
   def sort
-    # binding.pry
     @task.update(row_order_position: params[:row_order_position], list_id: params[:list_id])
     head :no_content
   end
