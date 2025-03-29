@@ -1,12 +1,12 @@
 class ListsController < ApplicationController
-  before_action :set_list, except: [ :index, :new, :create, :update_position ]
+  before_action :set_list, except: [ :index, :new, :create ]
 
   def index
-    @lists = List.order(:position)
+    @lists = List.rank(:row_order)
   end
 
   def show
-    @tasks = @list.tasks.order(:position)
+    @tasks = @list.tasks
   end
 
   def new
@@ -40,10 +40,9 @@ class ListsController < ApplicationController
     redirect_to lists_path, notice: "List deleted successfully"
   end
 
-  def update_position
-    position = params[:position].to_i
-    @list.insert_at(position)
-    head :ok
+  def sort
+    @list.update(row_order_position: params[:row_order_position])
+    head :no_content
   end
 
   private
@@ -53,6 +52,6 @@ class ListsController < ApplicationController
   end
 
   def list_params
-    params.require(:list).permit(:name, :position)
+    params.require(:list).permit(:name, :row_order_position)
   end
 end

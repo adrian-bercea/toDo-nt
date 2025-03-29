@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_27_182446) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_29_123743) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -67,9 +67,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_182446) do
 
   create_table "lists", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "row_order"
   end
 
   create_table "tasks", force: :cascade do |t|
@@ -80,8 +80,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_27_182446) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.boolean "reminder_sent", default: false
-    t.integer "position"
     t.bigint "list_id"
+    t.integer "row_order"
     t.index ["list_id"], name: "index_tasks_on_list_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
