@@ -42,7 +42,7 @@ class ListsController < ApplicationController
 
   def sort
     @list.update(row_order_position: params[:row_order_position])
-    head :ok
+    head :no_content
   end
 
   private

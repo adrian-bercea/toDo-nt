@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   include ActionView::RecordIdentifier # For dom_id helper
-  before_action :set_task, only: %i[show edit update destroy]
+  before_action :set_task, except: %i[index new create]
 
   def index
       @tasks = Task.all
@@ -76,6 +76,12 @@ class TasksController < ApplicationController
     end
   end
 
+  def sort
+    # binding.pry
+    @task.update(row_order_position: params[:row_order_position], list_id: params[:list_id])
+    head :no_content
+  end
+
   private
 
   def set_task
@@ -83,6 +89,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :completed, :position, :list_id, category_ids: [])
+    params.require(:task).permit(:title, :description, :completed, :row_order_position, :list_id, category_ids: [])
   end
 end

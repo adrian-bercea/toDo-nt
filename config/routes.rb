@@ -9,7 +9,12 @@ Rails.application.routes.draw do
       put :sort
     end
   end
-  resources :tasks
+  resources :tasks do
+    member do
+      put :sort
+    end
+  end
+
   resources :categories, only: [ :new, :create ]
 
   namespace :api do

@@ -8,7 +8,7 @@ class Task < ApplicationRecord
 
   validates :title, presence: true
   # Update broadcast to include list changes
-  after_update_commit :broadcast_list_if_changed
+  # after_update_commit :broadcast_list_if_changed
 
   include RankedModel
   ranks :row_order, with_same: :list_id

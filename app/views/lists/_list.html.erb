@@ -1,4 +1,4 @@
-<div class="list" data-sortable-id="<%= list.id%>">
+<div class="list" data-sortable-url="<%= sort_list_path(list)%>">
 
   <h3><%= list.name %></h3>
   <h3><%= list.row_order %></h3>
@@ -13,10 +13,11 @@
   </turbo-frame>
 
   <br>
-  <div id="list_<%= list.id %>_tasks" 
-       data-controller="sortable"
-       data-sortable-list-id-value="<%= list.id %>">
-    <%= render "lists/tasks", list: list %>
-  </div>
-  
+  <div data-controller="sortable" data-sortable-group-value="tasks" data-sortable-list-id=<%= list.id %>>
+    <% list.tasks.rank(:row_order).each do |task| %>
+      <div class="task-item-container" data-sortable-url="<%= sort_task_path(task) %>">
+        <%= render task %>
+      </div>
+    <% end %>
+  </div>  
 </div>
