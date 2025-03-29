@@ -2,6 +2,7 @@
   <div class="task-card <%= task.completed ? 'task-completed' : '' %>">
     <div class="task-header">
       <h2 class="task-title"><%= task.title %></h2>
+      <h2 class="task-title"><%= task.row_order %></h2>
       <span class="task-status <%= task.completed ? 'status-completed' : 'status-pending' %>">
         <%= task.completed ? "✅" : "⏳" %>
       </span>

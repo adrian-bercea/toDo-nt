@@ -1,8 +1,7 @@
-
-
-<div class="list" id="list_<%= list.id %>">
+<div class="list" data-sortable-id="<%= list.id%>">
 
   <h3><%= list.name %></h3>
+  <h3><%= list.row_order %></h3>
 
   <!-- Turbo Frame for the create task button/form -->
   <turbo-frame id="new-task-frame-<%= list.id %>">

@@ -73,4 +73,4 @@ gem "sidekiq-scheduler", "~> 5.0"
 gem "redis", ">= 4.0.1"
 
 gem "faker"
-gem "acts_as_list"
+gem "ranked-model"

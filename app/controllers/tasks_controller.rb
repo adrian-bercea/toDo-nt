@@ -1,14 +1,10 @@
 class TasksController < ApplicationController
   include ActionView::RecordIdentifier # For dom_id helper
-  before_action :set_task, only: %i[show edit update destroy update_position]
+  before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    benchmark = Benchmark.measure do
-      @tasks = Task.order(:position)
+      @tasks = Task.all
       render
-    end
-
-    logger.info "Tasks#index completed in #{benchmark.real * 1000} miliseconds"
   end
 
   def show
@@ -18,11 +14,11 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
-  def new
-    @task = Task.new
-    @task.list_id = params[:list_id]
-    @list_id = params[:list_id]
-  end
+  # def new
+  #   @task = Task.new
+  #   @task.list_id = params[:list_id]
+  #   @list_id = params[:list_id]
+  # end
 
   def create
     @task = Task.new(task_params)
@@ -30,7 +26,6 @@ class TasksController < ApplicationController
 
     if @task.save
       # Set position to be at the beginning of the list
-      @task.insert_at(1) # This moves it to the top position in the list
 
       respond_to do |format|
         format.turbo_stream do
@@ -78,23 +73,6 @@ class TasksController < ApplicationController
       end
       format.html { redirect_to lists_path, status: :see_other, notice: "Task was successfully destroyed." }
       format.json { head :no_content }
-    end
-  end
-
-  def update_position
-    ActiveRecord::Base.transaction do
-      position = params[:position].to_i
-      list_id = params[:list_id]
-
-      # Change list if needed (do this first)
-      if list_id.present? && list_id.to_i != @task.list_id
-        @task.update!(list_id: list_id.to_i)
-      end
-
-      # Then update position (after list change)
-      @task.reload.insert_at(position)
-
-      head :ok
     end
   end
 

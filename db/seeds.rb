@@ -11,8 +11,8 @@
 4
 .times do |i|
   List.create(
-    name: "List #{i + 1}",
-    position: i + 1)
+    name: "List #{i + 1}"
+  )
 end
 
 Category.create(name: "Boring")
@@ -25,7 +25,6 @@ Category.create(name: "I might do this")
     title: "Task #{i + 1}",
     description: Faker::Lorem.paragraph,
     completed: [ true, false ].sample,
-    position: i +1,
     list_id: 1
   )
 end
