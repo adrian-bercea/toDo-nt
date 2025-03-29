@@ -8,12 +8,11 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-4
-.times do |i|
-  List.create(
-    name: "List #{i + 1}",
-    position: i + 1)
-end
+List.create(name: "To Do")
+List.create(name: "Doing")
+List.create(name: "Done")
+List.create(name: "Backlog")
+List.create(name: "On Hold for ever")
 
 Category.create(name: "Boring")
 Category.create(name: "Waste of time")
