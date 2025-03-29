@@ -1,5 +1,6 @@
 version: '3'
 services:
+  # Keep the db service since you're still using PostgreSQL
   db:
     container_name: postgres
     image: postgres:14
@@ -31,7 +32,9 @@ services:
     ports:
       - "3000:3000"
     environment:
+      # HOST: todont.eu.org
       RAILS_MASTER_KEY: ${PRODUCTION_KEY}
+      RAILS_ENV: production
       DATABASE_URL: postgresql://postgres:postgres@db:5432/todo_nt_production
       REDIS_URL: redis://redis:6379/1
       DISABLE_DATABASE_ENVIRONMENT_CHECK: 1
@@ -40,7 +43,28 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
-    command: bash -c "bin/rails db:setup && bin/rails server -b 0.0.0.0"
+    # Modified command to force drop and recreate
+    command: >
+      bash -c "
+        bin/rails db:migrate &&
+        bin/rails server -b 0.0.0.0
+      "
+
+  sidekiq:
+    container_name: sidekiq
+    build: .
+    environment:
+      RAILS_MASTER_KEY: ${PRODUCTION_KEY}
+      RAILS_ENV: production
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/todo_nt_production
+      REDIS_URL: redis://redis:6379/1
+      # HOST: todont.eu.org
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    command: bundle exec sidekiq
 
 volumes:
   postgres_data:
