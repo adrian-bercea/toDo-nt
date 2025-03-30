@@ -10,5 +10,17 @@ class Task < ApplicationRecord
   include RankedModel
   ranks :row_order, with_same: :list_id
 
+  after_create_commit -> { broadcast_reload }
+  after_update_commit -> { broadcast_reload }
+  after_destroy_commit -> { broadcast_reload }
+
   private
+
+  def broadcast_reload
+    Turbo::StreamsChannel.broadcast_action_to(
+      "task_changes",
+      action: "reload",
+      target: "body"
+    )
+  end
 end
