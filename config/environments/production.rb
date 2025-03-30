@@ -69,9 +69,9 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     user_name: Rails.application.credentials.smtp.user_name,
     password: Rails.application.credentials.smtp.password,
-    address: 'sandbox.smtp.mailtrap.io',
-    host: 'sandbox.smtp.mailtrap.io',
-    port: '2525',
+    address: "sandbox.smtp.mailtrap.io",
+    host: "sandbox.smtp.mailtrap.io",
+    port: "2525",
     authentication: :login
   }
 

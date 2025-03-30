@@ -1,13 +1,12 @@
+<%= turbo_stream_from "task_changes" %>
 <h1>My Lists</h1>
 
-<%# Place all stream subscriptions at the top of the page %>
-<%#= turbo_stream_from "lists" %>
-<%# @lists.each do |list| %>
-  <%#= turbo_stream_from list %>
-<%# end %>
-
-<div class="lists-container" data-controller="sortable"> <!-- Use whatever class you had before -->
-  <% @lists.each do |list| %>
-    <%= render "list", list: list %>
-  <% end %>
+<div data-controller="turbo-reload">
+  <turbo-frame id="lists-content">
+    <div class="lists-container" data-controller="sortable">
+      <% @lists.each do |list| %>
+        <%= render "list", list: list %>
+      <% end %>
+    </div>
+  </turbo-frame>
 </div>
