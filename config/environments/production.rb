@@ -67,8 +67,8 @@ Rails.application.configure do
   # For this to work in production I'll have to set up a domain and an email server. (Or try to use their sandbox)
   # config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    user_name: Rails.application.credentials.smtp.user_name,
-    password: Rails.application.credentials.smtp.password,
+    user_name: Rails.application.credentials.smtp&.user_name,
+    password: Rails.application.credentials.smtp&.password,
     address: "sandbox.smtp.mailtrap.io",
     host: "sandbox.smtp.mailtrap.io",
     port: "2525",
