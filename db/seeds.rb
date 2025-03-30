@@ -12,7 +12,7 @@ List.create(name: "To Do")
 List.create(name: "Doing")
 List.create(name: "Done")
 List.create(name: "Backlog")
-List.create(name: "On Hold for ever")
+List.create(name: "On Hold forever")
 
 Category.create(name: "Boring")
 Category.create(name: "Waste of time")

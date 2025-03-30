@@ -45,7 +45,8 @@ services:
     # Modified command to force drop and recreate
     command: >
       bash -c "
-        bin/rails db:migrate &&
+        bin/rails db:drop &&
+        bin/rails db:setup &&
         bin/rails server -b 0.0.0.0
       "
 
