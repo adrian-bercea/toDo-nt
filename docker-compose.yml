@@ -1,4 +1,3 @@
-version: '3'
 services:
   # Keep the db service since you're still using PostgreSQL
   db:

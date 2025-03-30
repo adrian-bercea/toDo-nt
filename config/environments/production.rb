@@ -47,9 +47,7 @@ Rails.application.configure do
   config.active_support.report_deprecations = false
 
   # Replace the default in-process memory cache store with a durable alternative.
-  config.cache_store = :redis_cache_store, {
-    url: ENV.fetch("REDIS_URL", "redis://redis:6379/1")
-  }
+  config.cache_store = :redis_cache_store, { url: ENV.fetch("REDIS_URL") }
 
   # Replace the default in-process and non-durable queuing backend for Active Job.
   config.active_job.queue_adapter = :solid_queue
@@ -68,18 +66,14 @@ Rails.application.configure do
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # For this to work in production I'll have to set up a domain and an email server. (Or try to use their sandbox)
   # config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = if Rails.application.credentials.smtp.present?
-    {
-      user_name: Rails.application.credentials.smtp&.user_name,
-      password: Rails.application.credentials.smtp&.password,
-      address: "sandbox.smtp.mailtrap.io",
-      host: "sandbox.smtp.mailtrap.io",
-      port: "2525",
-      authentication: :login
-    }
-  else
-    {}
-  end
+  config.action_mailer.smtp_settings = {
+    user_name: Rails.application.credentials.smtp.user_name,
+    password: Rails.application.credentials.smtp.password,
+    address: 'sandbox.smtp.mailtrap.io',
+    host: 'sandbox.smtp.mailtrap.io',
+    port: '2525',
+    authentication: :login
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -92,17 +86,17 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  config.hosts = [
-    # Your future domain
-    "todont.eu.org",
-    "www.todont.eu.org",
-    # Local development
-    "localhost",
-    # Docker container name
-    "web",
-    # Allow numeric IPs for development
-    /\d+\.\d+\.\d+\.\d+/
-  ]
+  # config.hosts = [
+  #   # Your future domain
+  #   "todont.eu.org",
+  #   "www.todont.eu.org",
+  #   # Local development
+  #   "localhost",
+  #   # Docker container name
+  #   "web",
+  #   # Allow numeric IPs for development
+  #   /\d+\.\d+\.\d+\.\d+/
+  # ]
   #
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
