@@ -297,3 +297,76 @@
 .collab-button {
   margin-left: 10px;
 }
+
+.simple-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.app-title a {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.auth-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-name {
+  margin-right: 0.5rem;
+}
+
+.btn {
+  padding: 0.4rem 0.75rem;
+  background: #f1f5f9;
+  border: 1px solid #ddd;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  color: #333;
+}
+
+form.button_to {
+  margin: 0;
+  display: inline-block;
+}
+
+/* Profile link styles */
+.profile-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  background: #f8fafc;
+  padding: 0.25rem 0.5rem;
+  border-radius: 2rem;
+  border: 1px solid #e2e8f0;
+  margin-right: 0.5rem;
+}
+
+.profile-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background-color: #3b82f6;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.profile-name {
+  color: #334155;
+  font-weight: 500;
+}
+
+.profile-link:hover {
+  background: #f1f5f9;
+}

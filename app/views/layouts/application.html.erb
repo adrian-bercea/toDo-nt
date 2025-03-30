@@ -24,20 +24,27 @@
   </head>
 
   <body>
+    <!--
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
-
-    
-    <% if user_signed_in? %>
-      <div class="user-actions">
-        <%= link_to "Profile", edit_user_registration_path, class: "btn btn-primary" %>
-        <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-secondary" %>
+    -->
+    <header class="simple-header">
+      <div class="app-title">
+        <a href="/">ToDoNt</a>
       </div>
-    <% else %>
-      <%= link_to "Log in", new_user_session_path, class: "btn btn-primary" %>
-      <%= link_to "Sign up", new_user_registration_path, class: "btn btn-secondary" %>
-    <% end %>
-  </div>
+      <div class="auth-links">
+        <% if user_signed_in? %>
+          <a class="profile-link" href="/users/edit">
+            <span class="profile-icon"><%= current_user.display_name.first.upcase %></span>
+            <span class="profile-name"><%= current_user.display_name %></span>
+          </a>
+          <%= button_to "Log out", destroy_user_session_path, method: :delete, class: "btn" %>
+        <% else %>
+          <a class="btn btn-primary" href="/users/sign_in">Log in</a>
+          <a class="btn" href="/users/sign_up">Sign up</a>
+        <% end %>
+      </div>
+    </header>
 
     <%= yield %>
   </body>
