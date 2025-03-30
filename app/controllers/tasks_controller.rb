@@ -63,6 +63,32 @@ class TasksController < ApplicationController
     head :no_content
   end
 
+  def join
+    @task = Task.find(params[:id])
+    @task.users << current_user unless @task.users.include?(current_user)
+
+    # This will trigger the after_update_commit callback
+    @task.touch
+
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: lists_path) }
+      format.turbo_stream
+    end
+  end
+
+  def leave
+    @task = Task.find(params[:id])
+    @task.users.delete(current_user)
+
+    # This will trigger the after_update_commit callback
+    @task.touch
+
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: lists_path) }
+      format.turbo_stream
+    end
+  end
+
   private
 
   def set_task

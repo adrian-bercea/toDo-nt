@@ -1,0 +1,27 @@
+<div class="task-collaborators">
+  <p class="collaborators-heading">Collaborators</p>
+  
+  <div class="task-collab-row">
+    <div class="collaborator-tags">
+      <% if task.users.any? %>
+        <% task.users.each do |user| %>
+          <span class="collaborator-tag"><%= user.display_name %></span>
+        <% end %>
+      <% else %>
+        <span class="no-collaborators">No collaborators yet</span>
+      <% end %>
+    </div>
+    
+    <div class="collab-button">
+      <% if user_signed_in? %>
+        <% if task.users.include?(current_user) %>
+          <%= button_to "Leave", leave_task_path(task), 
+              class: "action-button leave-button" %>
+        <% else %>
+          <%= button_to "Join", join_task_path(task), 
+              class: "action-button join-button" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

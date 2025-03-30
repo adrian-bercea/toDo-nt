@@ -9,9 +9,12 @@ Rails.application.routes.draw do
       put :sort
     end
   end
+
   resources :tasks do
     member do
       put :sort
+      post :join
+      post :leave
     end
   end
 

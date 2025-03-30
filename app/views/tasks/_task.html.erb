@@ -30,6 +30,8 @@
                   data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this task?" } do %>
         <span class="action-icon">🗑️</span> Delete
       <% end %>
+      
+      <%= render "tasks/users", task: task %>
     </div>
   </div>
 <% end %>

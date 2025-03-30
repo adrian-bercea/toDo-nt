@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_29_123743) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_30_125352) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -84,6 +84,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_29_123743) do
     t.integer "row_order"
     t.index ["list_id"], name: "index_tasks_on_list_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"
+  end
+
+  create_table "tasks_users", id: false, force: :cascade do |t|
+    t.bigint "task_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["task_id", "user_id"], name: "index_tasks_users_on_task_id_and_user_id"
+    t.index ["user_id", "task_id"], name: "index_tasks_users_on_user_id_and_task_id"
   end
 
   create_table "users", force: :cascade do |t|
