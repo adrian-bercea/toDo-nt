@@ -92,18 +92,22 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  config.hosts = [
-    # Your future domain
+  config.hosts =
+  [
     "todont.eu.org",
     "www.todont.eu.org",
+    "todont.duckdns.org",
+    "www.todont.duckdns.org",
     # Local development
     "localhost",
     # Docker container name
     "web",
+    # Add this line to allow Docker container IDs
+    /^[a-f0-9]+(?::\d+)?$/,
     # Allow numeric IPs for development
     /\d+\.\d+\.\d+\.\d+/
   ]
   #
   # Skip DNS rebinding protection for the default health check endpoint.
-  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end
