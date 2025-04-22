@@ -39,4 +39,7 @@
 
 /config/credentials/production.key
 
+/.kamal/secrets
+
 .env
+
