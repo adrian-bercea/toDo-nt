@@ -96,6 +96,7 @@ builder:
 accessories:
   db:
     image: postgres:15
+    host: 49.13.90.233
     port: "127.0.0.1:5432:5432"
     env:
       clear:
@@ -107,6 +108,7 @@ accessories:
   
   redis:
     image: redis:7.0
+    host: 49.13.90.233
     port: "127.0.0.1:6379:6379"
     directories:
       - redis_data:/data
