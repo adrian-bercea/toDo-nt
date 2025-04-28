@@ -7,7 +7,7 @@ class TaskReminderJob
     task = Task.find(task_id)
 
     # Ensure idempotency
-    return if task.reminder_sent? || task.user.nil?
+    return if task.reminder_sent? || task.users.empty?
 
     # Send reminder
     TaskMailer.send_reminder(task_id).deliver_now
